@@ -6,7 +6,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "code_products")
+@Table(name = "codi_products")
 @Getter
 @Setter
 public class CodiProduct extends BaseEntity {

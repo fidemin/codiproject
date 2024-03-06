@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "code_brands")
+@Table(name = "codi_brands")
 @Getter
 @Setter
 public class CodiBrand extends BaseEntity {
