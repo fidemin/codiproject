@@ -2,21 +2,27 @@ package com.yunhongmin.codi.initialize;
 
 import com.yunhongmin.codi.domain.CodiBrand;
 import com.yunhongmin.codi.domain.CodiCategory;
+import com.yunhongmin.codi.domain.CodiCategoryStat;
 import com.yunhongmin.codi.domain.CodiProduct;
 import com.yunhongmin.codi.repository.CodiBrandRepository;
+import com.yunhongmin.codi.repository.CodiCategoryStatRepository;
 import com.yunhongmin.codi.repository.CodiProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class CodiDataInitializer implements CommandLineRunner {
     private final CodiBrandRepository codiBrandRepository;
     private final CodiProductRepository codiProductRepository;
+    private final CodiCategoryStatRepository codiCategoryStatRepository;
 
     @Override
     public void run(String... args) throws Exception {
+        // data initialize codi brand and product
         CodiBrandData[] codiBrandDatas = new CodiBrandData[]{
                 new CodiBrandData("A", new int[]{11200, 5500, 4200, 9000, 2000, 1700, 1800, 2300}),
                 new CodiBrandData("B", new int[]{10500, 5900, 3800, 9100, 2100, 2000, 2000, 2200}),
@@ -45,5 +51,19 @@ public class CodiDataInitializer implements CommandLineRunner {
                 codiProductRepository.save(codiProduct);
             }
         }
+
+        // data initialize for min price by category
+        List<CodiCategoryStat> codiCategoryStatMins = codiProductRepository.findCodiCategoryStatMin();
+        for (CodiCategoryStat codiCategoryStatMin : codiCategoryStatMins) {
+            codiCategoryStatRepository.save(codiCategoryStatMin);
+        }
+
+        // data initialize for max price by category
+        List<CodiCategoryStat> codiCategoryStatMaxs = codiProductRepository.findCodiCategoryStatMax();
+        for (CodiCategoryStat codiCategoryStatMax : codiCategoryStatMaxs) {
+            codiCategoryStatRepository.save(codiCategoryStatMax);
+        }
+
+
     }
 }
