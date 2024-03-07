@@ -11,14 +11,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DataInitializer implements CommandLineRunner {
+public class CodiDataInitializer implements CommandLineRunner {
     private final CodiBrandRepository codiBrandRepository;
     private final CodiProductRepository codiProductRepository;
 
     @Override
     public void run(String... args) throws Exception {
         CodiBrandData[] codiBrandDatas = new CodiBrandData[]{
-                new CodiBrandData("A", new int[]{11200, 5500, 4200, 9000, 2000, 1700, 1800, 2300})
+                new CodiBrandData("A", new int[]{11200, 5500, 4200, 9000, 2000, 1700, 1800, 2300}),
+                new CodiBrandData("B", new int[]{10500, 5900, 3800, 9100, 2100, 2000, 2000, 2200}),
+                new CodiBrandData("C", new int[]{10000, 6200, 3300, 9200, 2200, 1900, 2200, 2100}),
+                new CodiBrandData("D", new int[]{10100, 5100, 3000, 9500, 2500, 1500, 2400, 2000}),
+                new CodiBrandData("E", new int[]{10700, 5000, 3800, 9900, 2300, 1800, 2100, 2100}),
+                new CodiBrandData("F", new int[]{11200, 7200, 4000, 9300, 2100, 1600, 2300, 1900}),
+                new CodiBrandData("G", new int[]{10500, 5800, 3900, 9000, 2200, 1700, 2100, 2000}),
+                new CodiBrandData("H", new int[]{10800, 6300, 3100, 9700, 2100, 1600, 2000, 2000}),
+                new CodiBrandData("I", new int[]{11400, 6700, 3200, 9500, 2400, 1700, 1700, 2400})
         };
 
         for (CodiBrandData codiBrandData : codiBrandDatas) {
