@@ -1,6 +1,5 @@
-package com.yunhongmin.codi.controller.response;
+package com.yunhongmin.codi.dto;
 
-import com.yunhongmin.codi.dto.CodiProductWithBrandNameDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -10,7 +9,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class MinPriceByCategoryResponse {
+public class MinPriceByCategoryDto {
     private final List<CodiProductWithBrandNameDto> minPriceByCategory;
     private final int totalPrice;
 }
