@@ -1,5 +1,6 @@
 package com.yunhongmin.codi.repository;
 
+import com.yunhongmin.codi.domain.CodiBrand;
 import com.yunhongmin.codi.domain.CodiCategoryStat;
 import com.yunhongmin.codi.domain.CodiProduct;
 import com.yunhongmin.codi.domain.StatType;
@@ -10,6 +11,8 @@ import java.util.List;
 
 
 public interface CodiProductRepository extends JpaRepository<CodiProduct, Long> {
+    List<CodiProduct> findByCodiBrand(CodiBrand codiBrand);
+
     @Query(value = """
             SELECT new com.yunhongmin.codi.domain.CodiCategoryStat(
             cp1.codiCategory as codiCategory, MIN(cp1.price) as price, 'MIN' as statType)
