@@ -36,6 +36,4 @@ public class CodiProductService {
         return distinctCodiProducts.stream()
                 .map(CodiProductConverter::toCodiProductWithBrandNameDto).collect(Collectors.toList());
     }
-
-
 }

@@ -18,7 +18,7 @@ public class CodiBrandController {
     private final CodiBrandService codiBrandService;
 
     @RequestMapping(method = RequestMethod.GET, value = "withMinPrice")
-    ResponseEntity<CodiBrandDto> getWithMinPrice() {
+    ResponseEntity<CodiBrandDto> getBrandWithMinPrice() {
         Optional<CodiBrandDto> codiBrandOptional = codiBrandService.getCodiBrandWithMinTotalPrice();
         if (codiBrandOptional.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
