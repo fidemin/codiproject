@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CodiBrandCreateDto {
+public class CodiBrandRequestDto {
     private String brandName;
     private List<CodiCategoryPriceDto> categories;
 }

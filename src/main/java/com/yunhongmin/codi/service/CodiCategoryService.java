@@ -44,11 +44,7 @@ public class CodiCategoryService {
     public void updateCodiCategoryStats() {
         // Delete and create new strategy
         StatType[] statTypes = new StatType[]{StatType.MAX, StatType.MIN};
-        List<CodiCategoryStat> oldStats = codiCategoryStatRepository.findByStatTypeIn(Arrays.stream(statTypes).toList());
-
-        for (CodiCategoryStat oldStat : oldStats) {
-            codiCategoryStatRepository.delete(oldStat);
-        }
+        codiCategoryStatRepository.deleteBulkByStatTypes(Arrays.stream(statTypes).toList());
 
         List<CodiCategoryStat> codiCategoryStatMins = codiProductRepository.findCodiCategoryStatMin();
         for (CodiCategoryStat codiCategoryStatMin : codiCategoryStatMins) {
