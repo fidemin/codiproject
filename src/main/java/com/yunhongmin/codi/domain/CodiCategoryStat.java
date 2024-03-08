@@ -2,12 +2,14 @@ package com.yunhongmin.codi.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "codi_category_stats")
 @Getter
 @Setter
+@NoArgsConstructor
 public class CodiCategoryStat extends BaseEntity {
 
     @Id

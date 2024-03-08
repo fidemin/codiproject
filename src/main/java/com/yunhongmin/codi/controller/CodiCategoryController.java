@@ -21,7 +21,7 @@ public class CodiCategoryController {
     private final CodiCategoryService codiCategoryService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/{category}/withMinMaxPrice")
-    ResponseEntity<CategoryWithMinMaxBrandsDto> getCategoryWithMinMaxPriceBrands(
+    public ResponseEntity<CategoryWithMinMaxBrandsDto> getCategoryWithMinMaxPriceBrands(
             @PathVariable("category") String category) {
 
         String categoryString = category.toUpperCase();
