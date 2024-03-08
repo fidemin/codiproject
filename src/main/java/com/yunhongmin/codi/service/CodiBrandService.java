@@ -98,6 +98,18 @@ public class CodiBrandService {
         codiCategoryService.updateCodiCategoryStats();
     }
 
+    @Transactional
+    public void deleteBrand(long brandId) {
+        Optional<CodiBrand> codiBrandOptional = codiBrandRepository.findById(brandId);
+        if (codiBrandOptional.isEmpty()) {
+            return;
+        }
+        CodiBrand codiBrand = codiBrandOptional.get();
+        codiProductRepository.deleteBulkByCodiBrand(codiBrand);
+        codiCategoryService.updateCodiCategoryStats();
+    }
+
+
     public Optional<CodiBrandDto> getCodiBrandWithMinTotalPrice() {
         Optional<CodiBrand> codiBrandOptional = codiBrandRepository.findFirstByOrderByTotalPriceAsc();
         if (codiBrandOptional.isEmpty()) {

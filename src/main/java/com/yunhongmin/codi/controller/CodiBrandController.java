@@ -38,6 +38,13 @@ public class CodiBrandController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{brandId}")
+    public ResponseEntity<Void> deleteBrand(
+            @PathVariable("brandId") Long brandId) {
+        codiBrandService.deleteBrand(brandId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
     @RequestMapping(method = RequestMethod.GET, value = "withMinPrice")
     public ResponseEntity<CodiBrandDto> getBrandWithMinPrice() {

@@ -2,13 +2,20 @@ package com.yunhongmin.codi.repository;
 
 import com.yunhongmin.codi.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 
 public interface CodiProductRepository extends JpaRepository<CodiProduct, Long> {
     List<CodiProduct> findByCodiBrand(CodiBrand codiBrand);
+
+    @Query("DELETE FROM CodiProduct cp WHERE cp.codiBrand = :codiBrand")
+    @Modifying
+    @Transactional
+    void deleteBulkByCodiBrand(CodiBrand codiBrand);
 
     @Query(value = """
             SELECT new com.yunhongmin.codi.domain.CodiCategoryStat(
