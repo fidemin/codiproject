@@ -106,6 +106,7 @@ public class CodiBrandService {
         }
         CodiBrand codiBrand = codiBrandOptional.get();
         codiProductRepository.deleteBulkByCodiBrand(codiBrand);
+        codiBrandRepository.delete(codiBrand);
         codiCategoryService.updateCodiCategoryStats();
     }
 
