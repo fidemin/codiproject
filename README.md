@@ -155,7 +155,7 @@ localhost:8080 포트로 접근할 수 있다.
 
 - uri: `/api/codi/categories/{category}/withMinMaxPrice`
 - uri parameters
-    - category: top, outerware, pants, sneakers, bag, hat, socks, accessory 중에 하나 선택 가능
+    - `category`: top, outerware, pants, sneakers, bag, hat, socks, accessory 중에 하나 선택 가능
 - response
     - 성공
         - status code: `200`
@@ -193,6 +193,159 @@ localhost:8080 포트로 접근할 수 있다.
                 "success": false,
                 "errorMessage": "top1 is not proper category.",
                 "data": null
+            }
+            ```
+
+### 브랜드 및 상품 추가
+
+- uri: `/api/codi/brands`
+- method: `POST`
+- request body example
+
+```json
+{
+  "brandName": "New",
+  "categories": [
+    {
+      "category": "top",
+      "price": 1000
+    },
+    {
+      "category": "outerware",
+      "price": 1000
+    },
+    {
+      "category": "pants",
+      "price": 1000
+    },
+    {
+      "category": "sneakers",
+      "price": 20000
+    },
+    {
+      "category": "bag",
+      "price": 1000
+    },
+    {
+      "category": "hat",
+      "price": 1000
+    },
+    {
+      "category": "socks",
+      "price": 1000
+    },
+    {
+      "category": "accessory",
+      "price": 1000
+    }
+  ]
+}
+```
+
+- response
+    - 성공
+        - status code: 200
+        - response body example
+
+            ```json
+            {
+                "success": true,
+                "errorMessage": null,
+                "data": {
+                    "brandId": 10
+                }
+            }
+            ```
+
+### 브랜드 및 상품을 업데이트
+
+- uri: `/api/codi/brands/{brandId}`
+- method: `PUT`
+- uri parameter
+    - `brandId`: 업데이트하고자 하는 브랜드의 id
+
+- request body example
+
+    ```json
+    {
+      "brandName": "New",
+      "categories": [
+        {
+          "category": "top",
+          "price": 2000
+        },
+        {
+          "category": "outerware",
+          "price": 2000
+        },
+        {
+          "category": "pants",
+          "price": 2000
+        },
+        {
+          "category": "sneakers",
+          "price": 21000
+        },
+        {
+          "category": "bag",
+          "price": 2000
+        },
+        {
+          "category": "hat",
+          "price": 2000
+        },
+        {
+          "category": "socks",
+          "price": 2000
+        },
+        {
+          "category": "accessory",
+          "price": 2000
+        }
+      ]
+    }
+    ```
+
+- response
+    - 성공
+        - status code: `200`
+        - response body example:
+
+            ```json
+            {
+                "success": true,
+                "errorMessage": null,
+                "data": null
+            }
+            ```
+    - 브랜드가 존재하지 않음
+        - status code: `404`
+        - response body example:
+
+            ```json
+            {
+              "success": false,
+              "errorMessage": "codi brand with brand id 20 DOES NOT exist",
+              "data": null
+            }
+            ```
+
+### 브랜드 및 상품을 삭제
+
+- uri: `/api/codi/brands/{brandId}`
+- uri param
+    - `brandId`: 삭제하는 브랜드의 id
+- method: `DELETE`
+- response
+    - 성공
+        - status code: `200`
+        - response body example
+
+            ```json
+            {
+              "success": true,
+              "errorMessage": null,
+              "data": null
             }
             ```
 
