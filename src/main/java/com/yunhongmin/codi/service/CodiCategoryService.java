@@ -23,7 +23,7 @@ public class CodiCategoryService {
 
 
     @Transactional(readOnly = true)
-    public CategoryWithMinMaxBrandsDto getCategoryWithMinMaxBrandsDto(CodiCategory category) {
+    public CategoryWithMinMaxBrandsDto getCategoryWithMinMaxBrands(CodiCategory category) {
         List<CodiProduct> codiProductsWithMins = codiProductRepository.findByStatTypeAndCategory(StatType.MIN, category);
         List<CodiBrandPriceDto> codiBrandPriceMinDtos = codiProductsWithMins.stream()
                 .map(cp -> new CodiBrandPriceDto(

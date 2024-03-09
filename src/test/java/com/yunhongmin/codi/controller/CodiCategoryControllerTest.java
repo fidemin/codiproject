@@ -47,7 +47,7 @@ class CodiCategoryControllerTest {
                 .build();
         String categoryString = "top";
 
-        when(codiCategoryService.getCategoryWithMinMaxBrandsDto(CodiCategory.TOP)).thenReturn(dto);
+        when(codiCategoryService.getCategoryWithMinMaxBrands(CodiCategory.TOP)).thenReturn(dto);
 
         // when
         ResponseEntity<CommonResponseDto<CategoryWithMinMaxBrandsDto>> responseEntity

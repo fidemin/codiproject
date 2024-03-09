@@ -38,7 +38,7 @@ public class CodiCategoryController {
 
         CodiCategory codiCategory = CodiCategory.valueOf(category.toUpperCase());
         CategoryWithMinMaxBrandsDto categoryWithMinMaxBrandsDto =
-                codiCategoryService.getCategoryWithMinMaxBrandsDto(codiCategory);
+                codiCategoryService.getCategoryWithMinMaxBrands(codiCategory);
         return ResponseEntity.ok(CommonResponseDto.ofSuccess(categoryWithMinMaxBrandsDto));
     }
 }
