@@ -256,6 +256,17 @@ localhost:8080 포트로 접근할 수 있다.
                 }
             }
             ```
+    - Request Body가 잘못 되었음
+        - statud code: `400`
+        - response body example:
+
+            ```json
+            {
+                "success": false,
+                "errorMessage": "category null not be empty",
+                "data": null
+            }
+            ```
 
 ### 브랜드 및 상품을 업데이트
 
@@ -318,6 +329,18 @@ localhost:8080 포트로 접근할 수 있다.
                 "data": null
             }
             ```
+    - Request Body가 잘못 되었음
+        - statud code: `400`
+        - response body example:
+
+            ```json
+            {
+                "success": false,
+                "errorMessage": "category null not be empty",
+                "data": null
+            }
+            ```
+
     - 브랜드가 존재하지 않음
         - status code: `404`
         - response body example:

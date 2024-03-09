@@ -42,4 +42,13 @@ public class CodiCategoryValidator {
             throw new CodiCategoryException(errorMessage);
         }
     }
+
+    public void validateCategory(String categoryString) {
+        try {
+            CodiCategory.valueOf(categoryString.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            log.warn(ex.getMessage());
+            throw new CodiCategoryException(String.format("%s is not proper category", categoryString));
+        }
+    }
 }
