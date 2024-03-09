@@ -33,7 +33,8 @@ public class CodiCategoryController {
         }
 
         if (Objects.isNull(codiCategory)) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            String errorMessage = String.format("%s is not proper category.", category);
+            return new ResponseEntity<>(CommonResponseDto.ofFail(errorMessage), HttpStatus.BAD_REQUEST);
         }
         CategoryWithMinMaxBrandsDto categoryWithMinMaxBrandsDto =
                 codiCategoryService.getCategoryWithMinMaxBrandsDto(codiCategory);
