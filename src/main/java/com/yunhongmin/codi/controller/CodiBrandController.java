@@ -4,6 +4,8 @@ import com.yunhongmin.codi.common.CommonResponseDto;
 import com.yunhongmin.codi.dto.CodiBrandDto;
 import com.yunhongmin.codi.dto.CodiBrandIdDto;
 import com.yunhongmin.codi.dto.CodiBrandRequestDto;
+import com.yunhongmin.codi.exception.BadRequestException;
+import com.yunhongmin.codi.exception.CodiCategoryException;
 import com.yunhongmin.codi.exception.NoBrandException;
 import com.yunhongmin.codi.service.CodiBrandService;
 import jakarta.validation.Valid;
@@ -25,7 +27,12 @@ public class CodiBrandController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto<CodiBrandIdDto>> createBrand(
             @Valid @RequestBody CodiBrandRequestDto codiBrandCreateDto) {
-        Long brandId = codiBrandService.createBrand(codiBrandCreateDto);
+        Long brandId;
+        try {
+            brandId = codiBrandService.createBrand(codiBrandCreateDto);
+        } catch (CodiCategoryException ex) {
+            throw new BadRequestException(ex.getMessage());
+        }
         return ResponseEntity.ok(CommonResponseDto.ofSuccess(new CodiBrandIdDto(brandId)));
     }
 
@@ -38,6 +45,9 @@ public class CodiBrandController {
         } catch (NoBrandException ex) {
             log.warn(ex.getMessage());
             return new ResponseEntity<>(CommonResponseDto.ofFail(ex.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (CodiCategoryException ex) {
+            log.warn(ex.getMessage());
+            throw new BadRequestException(ex.getMessage());
         }
         return ResponseEntity.ok(CommonResponseDto.ofSuccess());
     }

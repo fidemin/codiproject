@@ -6,9 +6,11 @@ import com.yunhongmin.codi.domain.CodiProduct;
 import com.yunhongmin.codi.dto.CodiBrandDto;
 import com.yunhongmin.codi.dto.CodiBrandRequestDto;
 import com.yunhongmin.codi.dto.CodiCategoryPriceDto;
+import com.yunhongmin.codi.exception.CodiCategoryException;
 import com.yunhongmin.codi.exception.NoBrandException;
 import com.yunhongmin.codi.repository.CodiBrandRepository;
 import com.yunhongmin.codi.repository.CodiProductRepository;
+import com.yunhongmin.codi.validator.CodiCategoryValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,14 +24,18 @@ public class CodiBrandService {
     private final CodiBrandRepository codiBrandRepository;
     private final CodiProductRepository codiProductRepository;
     private final CodiCategoryService codiCategoryService;
+    private final CodiCategoryValidator codiCategoryValidator;
 
     @Transactional
-    public Long createBrand(CodiBrandRequestDto codiBrandCreateDto) {
+    public Long createBrand(CodiBrandRequestDto codiBrandCreateDto) throws CodiCategoryException {
+        List<CodiCategoryPriceDto> categoryPriceDtos = codiBrandCreateDto.getCategories();
+        List<String> categoryStrs = categoryPriceDtos.stream().map(CodiCategoryPriceDto::getCategory).toList();
+        codiCategoryValidator.validateCategories(categoryStrs);
+
         String brandName = codiBrandCreateDto.getBrandName();
         CodiBrand codiBrand = new CodiBrand();
         codiBrand.setName(brandName);
 
-        List<CodiCategoryPriceDto> categoryPriceDtos = codiBrandCreateDto.getCategories();
 
         int totalPrice = categoryPriceDtos.stream().map(CodiCategoryPriceDto::getPrice).mapToInt(p -> p).sum();
         codiBrand.setTotalPrice(totalPrice);
@@ -49,7 +55,12 @@ public class CodiBrandService {
     }
 
     @Transactional
-    public void updateBrand(long brandId, CodiBrandRequestDto codiBrandUpdateDto) {
+    public void updateBrand(long brandId, CodiBrandRequestDto codiBrandUpdateDto)
+            throws CodiCategoryException, NoBrandException {
+        List<CodiCategoryPriceDto> categoryPriceDtos = codiBrandUpdateDto.getCategories();
+        List<String> categoryStrs = categoryPriceDtos.stream().map(CodiCategoryPriceDto::getCategory).toList();
+        codiCategoryValidator.validateCategories(categoryStrs);
+
         Optional<CodiBrand> codiBrandOptional = codiBrandRepository.findById(brandId);
         if (codiBrandOptional.isEmpty()) {
             throw new NoBrandException(
@@ -59,7 +70,6 @@ public class CodiBrandService {
         CodiBrand codiBrand = codiBrandOptional.get();
         codiBrand.setName(codiBrandUpdateDto.getBrandName());
 
-        List<CodiCategoryPriceDto> categoryPriceDtos = codiBrandUpdateDto.getCategories();
         int totalPrice = categoryPriceDtos.stream().map(CodiCategoryPriceDto::getPrice).mapToInt(p -> p).sum();
         codiBrand.setTotalPrice(totalPrice);
 
