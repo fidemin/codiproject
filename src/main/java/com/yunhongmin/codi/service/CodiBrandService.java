@@ -111,6 +111,7 @@ public class CodiBrandService {
     }
 
 
+    @Transactional(readOnly = true)
     public Optional<CodiBrandDto> getCodiBrandWithMinTotalPrice() {
         Optional<CodiBrand> codiBrandOptional = codiBrandRepository.findFirstByOrderByTotalPriceAsc();
         if (codiBrandOptional.isEmpty()) {

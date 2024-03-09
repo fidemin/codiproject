@@ -1,5 +1,6 @@
 package com.yunhongmin.codi.controller;
 
+import com.yunhongmin.codi.common.CommonResponseDto;
 import com.yunhongmin.codi.domain.CodiCategory;
 import com.yunhongmin.codi.dto.CategoryWithMinMaxBrandsDto;
 import com.yunhongmin.codi.service.CodiCategoryService;
@@ -21,7 +22,7 @@ public class CodiCategoryController {
     private final CodiCategoryService codiCategoryService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/{category}/withMinMaxPrice")
-    public ResponseEntity<CategoryWithMinMaxBrandsDto> getCategoryWithMinMaxPriceBrands(
+    public ResponseEntity<CommonResponseDto<CategoryWithMinMaxBrandsDto>> getCategoryWithMinMaxPriceBrands(
             @PathVariable("category") String category) {
 
         String categoryString = category.toUpperCase();
@@ -36,6 +37,6 @@ public class CodiCategoryController {
         }
         CategoryWithMinMaxBrandsDto categoryWithMinMaxBrandsDto =
                 codiCategoryService.getCategoryWithMinMaxBrandsDto(codiCategory);
-        return ResponseEntity.ok(categoryWithMinMaxBrandsDto);
+        return ResponseEntity.ok(CommonResponseDto.ofSuccess(categoryWithMinMaxBrandsDto));
     }
 }

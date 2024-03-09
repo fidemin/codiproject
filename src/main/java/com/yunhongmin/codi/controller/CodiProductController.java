@@ -1,5 +1,6 @@
 package com.yunhongmin.codi.controller;
 
+import com.yunhongmin.codi.common.CommonResponseDto;
 import com.yunhongmin.codi.dto.CodiProductWithBrandNameDto;
 import com.yunhongmin.codi.dto.MinPriceByCategoryDto;
 import com.yunhongmin.codi.service.CodiProductService;
@@ -20,14 +21,16 @@ public class CodiProductController {
     private final CodiProductService codiProductService;
 
     @RequestMapping(value = "minPriceByCategory", method = RequestMethod.GET)
-    public ResponseEntity<MinPriceByCategoryDto> findProductsWithMinPriceByCategory() {
+    public ResponseEntity<CommonResponseDto<MinPriceByCategoryDto>> findProductsWithMinPriceByCategory() {
         List<CodiProductWithBrandNameDto> codiProductWithBrandNameDtos =
                 codiProductService.findDistinctProductsWithMinPriceByCategory();
 
         int totalPrice = codiProductWithBrandNameDtos.stream().map(CodiProductWithBrandNameDto::getPrice)
                 .mapToInt(price -> price).sum();
         return new ResponseEntity<>(
-                new MinPriceByCategoryDto(codiProductWithBrandNameDtos, totalPrice), HttpStatus.OK);
+                CommonResponseDto.ofSuccess(
+                        new MinPriceByCategoryDto(codiProductWithBrandNameDtos, totalPrice)
+                ), HttpStatus.OK);
     }
 
 }
