@@ -244,7 +244,7 @@ localhost:8080 포트로 접근할 수 있다.
 
 - response
     - 성공
-        - status code: 200
+        - status code: `201`
         - response body example
 
             ```json

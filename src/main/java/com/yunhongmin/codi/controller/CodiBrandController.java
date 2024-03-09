@@ -33,7 +33,8 @@ public class CodiBrandController {
         } catch (CodiCategoryException ex) {
             throw new BadRequestException(ex.getMessage());
         }
-        return ResponseEntity.ok(CommonResponseDto.ofSuccess(new CodiBrandIdDto(brandId)));
+        return new ResponseEntity<>(
+                CommonResponseDto.ofSuccess(new CodiBrandIdDto(brandId)), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{brandId}")
