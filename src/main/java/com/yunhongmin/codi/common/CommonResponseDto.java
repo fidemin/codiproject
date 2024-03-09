@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class CommonResponseDto<T> {
-    private final boolean success;
+    private final Boolean success;
     private final String errorMessage;
     private final T data;
 
