@@ -6,6 +6,7 @@ import com.yunhongmin.codi.dto.CodiBrandIdDto;
 import com.yunhongmin.codi.dto.CodiBrandRequestDto;
 import com.yunhongmin.codi.exception.NoBrandException;
 import com.yunhongmin.codi.service.CodiBrandService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class CodiBrandController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto<CodiBrandIdDto>> createBrand(
-            @RequestBody CodiBrandRequestDto codiBrandCreateDto) {
+            @Valid @RequestBody CodiBrandRequestDto codiBrandCreateDto) {
         Long brandId = codiBrandService.createBrand(codiBrandCreateDto);
         return ResponseEntity.ok(CommonResponseDto.ofSuccess(new CodiBrandIdDto(brandId)));
     }
@@ -31,7 +32,7 @@ public class CodiBrandController {
     @RequestMapping(method = RequestMethod.PUT, value = "/{brandId}")
     public ResponseEntity<CommonResponseDto<Void>> updateBrand(
             @PathVariable("brandId") Long brandId,
-            @RequestBody CodiBrandRequestDto codiBrandUpdateDto) {
+            @Valid @RequestBody CodiBrandRequestDto codiBrandUpdateDto) {
         try {
             codiBrandService.updateBrand(brandId, codiBrandUpdateDto);
         } catch (NoBrandException ex) {
