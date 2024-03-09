@@ -9,8 +9,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CodiCategoryPriceDto {
-    @NotEmpty(message = "category should not be empty")
-    @NotNull
+    @NotEmpty(message = "category null not be empty")
+    @NotNull(message = "category must not be null")
     private String category;
     @Positive(message = "price must be positive")
     private int price;

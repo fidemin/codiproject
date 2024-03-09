@@ -14,7 +14,7 @@ public class CodiBrandRequestDto {
     @NotNull
     private String brandName;
 
-    @NotNull
+    @NotNull(message = "categories must not be null")
     @NotEmpty(message = "no categories given")
     @Valid
     private List<CodiCategoryPriceDto> categories;
