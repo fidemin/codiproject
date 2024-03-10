@@ -175,6 +175,24 @@ class CodiBrandServiceTest {
     }
 
     @Test
+    @DisplayName("Codi Brand 삭제 성공: No Brand")
+    void deleteBrand_noBrand() {
+        // given
+        long brandId = 1L;
+        when(codiBrandRepository.findById(brandId)).thenReturn(Optional.empty());
+
+        // when
+        codiBrandService.deleteBrand(brandId);
+
+        // then
+        verify(codiProductRepository, times(0)).deleteBulkByCodiBrand(any());
+
+        verify(codiBrandRepository, times(0)).delete(any());
+        verify(codiCategoryService, times(0)).updateCodiCategoryStats();
+    }
+
+    @Test
+    @DisplayName("getCodiBrandWithMinTotalPrice 성공")
     void getCodiBrandWithMinTotalPrice() {
         // given
         CodiBrand codiBrand = new CodiBrand();
@@ -210,5 +228,18 @@ class CodiBrandServiceTest {
         assertEquals(codiProducts.get(0).getPrice(), categories.get(0).getPrice());
         assertEquals(codiProducts.get(1).getCodiCategory().toString(), categories.get(1).getCategory());
         assertEquals(codiProducts.get(1).getPrice(), categories.get(1).getPrice());
+    }
+
+    @Test
+    @DisplayName("getCodiBrandWithMinTotalPrice 성공: 브랜드 존재 안함")
+    void getCodiBrandWithMinTotalPrice_noBrand() {
+        // given
+        when(codiBrandRepository.findFirstByOrderByTotalPriceAsc()).thenReturn(Optional.empty());
+
+        // when
+        Optional<CodiBrandDto> actualOptional = codiBrandService.getCodiBrandWithMinTotalPrice();
+
+        // then
+        assertTrue(actualOptional.isEmpty());
     }
 }
