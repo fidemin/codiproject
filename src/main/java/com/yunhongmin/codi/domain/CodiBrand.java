@@ -12,6 +12,8 @@ public class CodiBrand extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(name = "total_price")

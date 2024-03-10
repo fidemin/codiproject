@@ -13,10 +13,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class BaseEntity {
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
     @PrePersist

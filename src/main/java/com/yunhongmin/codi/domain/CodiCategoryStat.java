@@ -17,10 +17,12 @@ public class CodiCategoryStat extends BaseEntity {
     private long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "codi_category", nullable = false)
     private CodiCategory codiCategory;
     private int price;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "stat_type", nullable = false)
     private StatType statType;
 
     public CodiCategoryStat(CodiCategory codiCategory, int price, String statType) {

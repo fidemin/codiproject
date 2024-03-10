@@ -15,10 +15,10 @@ public class CodiProduct extends BaseEntity {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "codi_brand_id")
+    @JoinColumn(name = "codi_brand_id", nullable = false)
     private CodiBrand codiBrand;
 
-    @Column(name = "codi_category")
+    @Column(name = "codi_category", nullable = false)
     @Enumerated(EnumType.STRING)
     private CodiCategory codiCategory;
 
