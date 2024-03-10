@@ -7,6 +7,12 @@
 - java version: openjdk 21
 - gradle version: 8.5
 
+## Test
+
+```bash
+gradle test
+```
+
 ## Build
 
 ```bash
