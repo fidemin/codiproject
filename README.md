@@ -1,5 +1,10 @@
 # codiproject
 
+## 구현 범위 및 개요
+
+- 기능: API 참고
+- 테스트: unit test
+
 ## Environment
 
 아래 환경 기준으로 테스트 되었다.
@@ -26,6 +31,12 @@ java -jar build/libs/codi-0.0.1.jar
 ```
 
 localhost:8080 포트로 접근할 수 있다.
+
+## Tables
+
+- codi_brands: 브랜드 이름, total price 등 브랜드와 관련된 정보 저장
+- codi_products: 제품 카테고리, price 등 개별 제품 정보 저장. codi_brand와 다대일 관계
+- codi_category_stats: 카테고리별 min, max price를 저장
 
 ## API
 
