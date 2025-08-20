@@ -61,13 +61,7 @@ public class CodiBrandService {
         List<String> categoryStrs = categoryPriceDtos.stream().map(CodiCategoryPriceDto::getCategory).toList();
         codiCategoryValidator.validateCategories(categoryStrs);
 
-        Optional<CodiBrand> codiBrandOptional = codiBrandRepository.findById(brandId);
-        if (codiBrandOptional.isEmpty()) {
-            throw new NoBrandException(
-                    String.format("codi brand with brand id %d DOES NOT exist", brandId));
-        }
-
-        CodiBrand codiBrand = codiBrandOptional.get();
+        CodiBrand codiBrand = codiBrandRepository.getReferenceById(brandId);
         codiBrand.setName(codiBrandUpdateDto.getBrandName());
 
         int totalPrice = categoryPriceDtos.stream().map(CodiCategoryPriceDto::getPrice).mapToInt(p -> p).sum();

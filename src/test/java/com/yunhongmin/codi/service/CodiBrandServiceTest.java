@@ -7,10 +7,10 @@ import com.yunhongmin.codi.dto.CodiBrandDto;
 import com.yunhongmin.codi.dto.CodiBrandRequestDto;
 import com.yunhongmin.codi.dto.CodiCategoryPriceDto;
 import com.yunhongmin.codi.exception.CodiCategoryException;
-import com.yunhongmin.codi.exception.NoBrandException;
 import com.yunhongmin.codi.repository.CodiBrandRepository;
 import com.yunhongmin.codi.repository.CodiProductRepository;
 import com.yunhongmin.codi.validator.CodiCategoryValidator;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -135,10 +135,10 @@ class CodiBrandServiceTest {
 
         long brandId = 1L;
 
-        when(codiBrandRepository.findById(brandId)).thenReturn(Optional.empty());
+        when(codiBrandRepository.getReferenceById(brandId)).thenThrow(new EntityNotFoundException());
 
         // expect
-        assertThrows(NoBrandException.class, () -> codiBrandService.updateBrand(brandId, dto));
+        assertThrows(EntityNotFoundException.class, () -> codiBrandService.updateBrand(brandId, dto));
 
         // then
         verify(codiCategoryValidator, times(1)).validateCategories(anyList());

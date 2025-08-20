@@ -1,6 +1,7 @@
 package com.yunhongmin.codi.common;
 
 import com.yunhongmin.codi.exception.BadRequestException;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -51,6 +52,20 @@ class ApiControllerAdviceTest {
 
         // then
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals(errorMsg, responseEntity.getBody().getErrorMessage());
+    }
+
+    @Test
+    void testHandleException_EntityNotFoundException() {
+        // given
+        String errorMsg = "error meessage";
+        EntityNotFoundException exception = new EntityNotFoundException(errorMsg);
+
+        // when
+        ResponseEntity<CommonResponseDto<Void>> responseEntity = apiControllerAdvice.handleException(exception);
+
+        // then
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         assertEquals(errorMsg, responseEntity.getBody().getErrorMessage());
     }
 }

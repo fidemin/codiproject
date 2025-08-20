@@ -1,6 +1,8 @@
 package com.yunhongmin.codi.common;
 
 import com.yunhongmin.codi.exception.BadRequestException;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,4 +23,11 @@ public class ApiControllerAdvice {
         String errorMessage = ex.getMessage();
         return ResponseEntity.badRequest().body(CommonResponseDto.ofFail(errorMessage));
     }
+
+    @ExceptionHandler(value = {EntityNotFoundException.class})
+    public ResponseEntity<CommonResponseDto<Void>> handleException(EntityNotFoundException ex) {
+        String errorMessage = ex.getMessage();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CommonResponseDto.ofFail(errorMessage));
+    }
+
 }
