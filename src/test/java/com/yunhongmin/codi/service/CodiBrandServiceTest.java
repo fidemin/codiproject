@@ -113,7 +113,7 @@ class CodiBrandServiceTest {
         returnedCodiProducts.add(codiProduct3);
 
         when(codiProductRepository.findByCodiBrand(any())).thenReturn(returnedCodiProducts);
-        when(codiBrandRepository.findById(brandId)).thenReturn(Optional.of(new CodiBrand()));
+        when(codiBrandRepository.getReferenceById(brandId)).thenReturn(new CodiBrand());
 
         // when
         codiBrandService.updateBrand(brandId, dto);
