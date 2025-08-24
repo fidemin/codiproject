@@ -14,8 +14,12 @@ public class CodiProduct extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "codi_brand_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "codi_brand_id",
+            nullable = false,
+            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)
+    )
     private CodiBrand codiBrand;
 
     @Column(name = "codi_category", nullable = false)

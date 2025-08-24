@@ -20,6 +20,15 @@ public class CodiProductController {
 
     private final CodiProductService codiProductService;
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<CommonResponseDto<List<CodiProductWithBrandNameDto>>> findProducts() {
+        List<CodiProductWithBrandNameDto> codiProductDtos = codiProductService.findAll();
+        return new ResponseEntity<>(
+                CommonResponseDto.ofSuccess(
+                        codiProductDtos
+                ), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "minPriceByCategory", method = RequestMethod.GET)
     public ResponseEntity<CommonResponseDto<MinPriceByCategoryDto>> findProductsWithMinPriceByCategory() {
         List<CodiProductWithBrandNameDto> codiProductWithBrandNameDtos =

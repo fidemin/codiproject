@@ -18,6 +18,12 @@ public interface CodiProductRepository extends JpaRepository<CodiProduct, Long> 
     void deleteBulkByCodiBrand(CodiBrand codiBrand);
 
     @Query(value = """
+            SELECT cp, cb FROM CodiProduct cp
+                    JOIN FETCH CodiBrand cb ON cp.codiBrand = cb
+            """)
+    List<CodiProduct> findAllWithBrand();
+
+    @Query(value = """
             SELECT new com.yunhongmin.codi.domain.CodiCategoryStat(
             cp1.codiCategory as codiCategory, MIN(cp1.price) as price, 'MIN' as statType)
                 FROM CodiProduct as cp1

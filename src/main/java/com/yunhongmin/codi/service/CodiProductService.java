@@ -21,6 +21,12 @@ public class CodiProductService {
     private final CodiProductRepository codiProductRepository;
 
     @Transactional(readOnly = true)
+    public List<CodiProductWithBrandNameDto> findAll() {
+        List<CodiProduct> codiProducts = codiProductRepository.findAllWithBrand();
+        return codiProducts.stream().map(CodiProductConverter::toCodiProductWithBrandNameDto).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public List<CodiProductWithBrandNameDto> findDistinctProductsWithMinPriceByCategory() {
         List<CodiProduct> codiProducts = codiProductRepository.findCodiProductWithStatType(StatType.MIN);
         HashSet<CodiCategory> seenCategory = new HashSet<>();
